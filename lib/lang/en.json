@@ -1,0 +1,20 @@
+{
+  "welcome": "Welcome",
+  "goodbye": "Goodbye",
+  "greetings": {
+    "hello": "Hello",
+    "good_morning": "Good morning",
+    "good_night": "Good night"
+  },
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit"
+  },
+  "messages": {
+    "success": "Operation completed successfully.",
+    "error": "An error occurred. Please try again.",
+    "loading": "Loading…"
+  }
+}

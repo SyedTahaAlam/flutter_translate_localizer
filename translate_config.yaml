@@ -1,0 +1,21 @@
+# flutter_translate_localizer configuration
+#
+# source: the language code of your source JSON file.
+# output: one or more target language codes to translate into.
+# source_destination: (optional) directory that contains the source JSON file.
+#                     Defaults to lib/lang
+# translated_destination: (optional) directory where translated files are saved.
+#                         Defaults to lib/lang
+
+source:
+  - en
+
+output:
+  - es
+  - ar
+
+source_destination:
+  - lib/lang
+
+translated_destination:
+  - lib/lang
