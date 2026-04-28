@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:flutter_translate_localizer/flutter_translate_localizer.dart';
+import 'package:flutter_translate_localizer/src/translator/translation_options.dart';
 
 /// Entry point for the `flutter_translate` executable.
 ///
@@ -23,6 +24,39 @@ Future<void> main(List<String> arguments) async {
       abbr: 'v',
       negatable: false,
       help: 'Print progress messages.',
+    )
+    ..addFlag(
+      'escape-vars',
+      negatable: false,
+      help:
+          'Detect and preserve interpolation placeholders ({var}, {{var}}, '
+          r'%s, @var, ${var}) so they are not altered by the translation engine.',
+    )
+    ..addFlag(
+      'handle-plurals',
+      negatable: false,
+      help:
+          'Detect and translate plural key groups: both flat _plural-suffixed '
+          'keys (Form A) and ICU MessageFormat blocks (Form B).',
+    )
+    ..addFlag(
+      'cldr-expand',
+      negatable: false,
+      help:
+          'When --handle-plurals is active, auto-expand ICU plural categories '
+          'to match the full set required by the target language (CLDR rules).',
+    )
+    ..addFlag(
+      'dry-run',
+      negatable: false,
+      help:
+          'Print what would be translated without calling the translation API.',
+    )
+    ..addOption(
+      'skip-keys',
+      help:
+          'Regular-expression pattern; any key whose fully-qualified dotted '
+          'path matches this pattern is left untranslated.',
     )
     ..addFlag(
       'help',
@@ -48,7 +82,31 @@ Future<void> main(List<String> arguments) async {
   final configPath = results['config'] as String;
   final verbose = results['verbose'] as bool;
 
-  final localizer = Localizer(configPath: configPath, verbose: verbose);
+  // Build v2 options from CLI flags.
+  RegExp? skipKeys;
+  final skipKeysRaw = results['skip-keys'] as String?;
+  if (skipKeysRaw != null && skipKeysRaw.isNotEmpty) {
+    try {
+      skipKeys = RegExp(skipKeysRaw);
+    } catch (e) {
+      stderr.writeln('Invalid --skip-keys regex: $e');
+      exit(1);
+    }
+  }
+
+  final options = TranslationOptions(
+    escapeVars: results['escape-vars'] as bool,
+    handlePlurals: results['handle-plurals'] as bool,
+    cldrExpand: results['cldr-expand'] as bool,
+    dryRun: results['dry-run'] as bool,
+    skipKeys: skipKeys,
+  );
+
+  final localizer = Localizer(
+    configPath: configPath,
+    verbose: verbose,
+    options: options,
+  );
 
   try {
     await localizer.run();
