@@ -1,6 +1,6 @@
 name: flutter_translate_localizer
 description: A Dart CLI tool that reads a YAML config file and translates JSON language files into multiple target languages using Google Translate.
-version: 1.0.0
+version: 2.0.0
 homepage: https://github.com/SyedTahaAlam/flutter_translate_localizer
 repository: https://github.com/SyedTahaAlam/flutter_translate_localizer
 
