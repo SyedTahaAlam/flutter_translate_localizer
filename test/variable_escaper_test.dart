@@ -39,6 +39,18 @@ void main() {
       expect(result.variables, ['%1\$s']);
     });
 
+    test('escapes multi-character positional printf like %1\$ld', () {
+      final result = VariableEscaper.escape('Value is %1\$ld');
+      expect(result.tokenized, 'Value is __VAR_0__');
+      expect(result.variables, ['%1\$ld']);
+    });
+
+    test('escapes multi-character positional printf like %2\$02d', () {
+      final result = VariableEscaper.escape('Index %2\$02d');
+      expect(result.tokenized, 'Index __VAR_0__');
+      expect(result.variables, ['%2\$02d']);
+    });
+
     test('escapes @variableName ARB style', () {
       final result = VariableEscaper.escape('Hello @name');
       expect(result.tokenized, 'Hello __VAR_0__');
