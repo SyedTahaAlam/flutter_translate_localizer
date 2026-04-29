@@ -66,8 +66,7 @@ class JsonTranslator {
 
     for (final entry in json.entries) {
       final key = entry.key;
-      final qualifiedKey =
-          keyPrefix.isEmpty ? key : '$keyPrefix.$key';
+      final qualifiedKey = keyPrefix.isEmpty ? key : '$keyPrefix.$key';
 
       // --- skip-keys filter ---
       if (options.skipKeys != null &&
@@ -305,7 +304,7 @@ class JsonTranslator {
     TranslationSummary? summary,
     bool countInSummary = true,
   }) async {
-    if (!options.escapeVars) {
+    if (options.escapeVars) {
       final translated =
           await _translateText(text, sourceLanguage, targetLanguage);
       if (countInSummary) summary?.keysTranslated++;

@@ -153,11 +153,12 @@ translated_destination:
   group('TranslateConfig.toString', () {
     test('returns human-readable representation', () {
       const config = TranslateConfig(
-        sourceLanguage: 'en',
-        outputLanguages: ['es'],
-        sourceDestination: 'lib/lang',
-        translatedDestination: 'lib/lang',
-      );
+          sourceLanguage: 'en',
+          outputLanguages: ['es'],
+          sourceDestination: 'lib/lang',
+          translatedDestination: 'lib/lang',
+          fileExtension: "json",
+          fileName: '');
       expect(config.toString(), contains('en'));
       expect(config.toString(), contains('es'));
     });

@@ -27,9 +27,9 @@ class TranslationOptions {
 
   const TranslationOptions({
     this.escapeVars = false,
-    this.handlePlurals = false,
+    this.handlePlurals = true,
     this.cldrExpand = false,
-    this.dryRun = false,
+    this.dryRun = true,
     this.skipKeys,
   });
 }

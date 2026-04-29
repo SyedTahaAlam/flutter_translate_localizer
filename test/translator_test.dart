@@ -6,8 +6,7 @@ import 'package:http/testing.dart';
 import 'package:test/test.dart';
 
 /// Builds a fake Google Translate response body for [translated].
-String _fakeResponse(String translated) =>
-    jsonEncode([
+String _fakeResponse(String translated) => jsonEncode([
       [
         [translated, 'original', null, null, 10]
       ],
@@ -61,7 +60,9 @@ void main() {
     test('translates string items inside lists', () async {
       final translator = JsonTranslator(client: _mockClient('元素'));
       final result = await translator.translateJson(
-        {'items': ['item1', 'item2']},
+        {
+          'items': ['item1', 'item2']
+        },
         'en',
         'zh',
       );
@@ -100,8 +101,7 @@ void main() {
       });
 
       final translator = JsonTranslator(client: client);
-      final result =
-          await translator.translateJson({'key': ''}, 'en', 'es');
+      final result = await translator.translateJson({'key': ''}, 'en', 'es');
 
       expect(result['key'], '');
       expect(callCount, 0);

@@ -26,13 +26,13 @@ class VariableEscaper {
   //   2. {{...}}  must be tried before plain {...} (starts with {{)
   //   3. %N$X+    must be tried before %X        (longer form first)
   static final RegExp _pattern = RegExp(
-    r'\$\{[^}]+\}'         // ${variableName}  — Dart interpolation
-    r'|\{\{[^}]+\}\}'      // {{variableName}} — Mustache
-    r'|\{[^{},\s]+\}'      // {variableName}   — easy_localization
-                           //   (no commas/spaces → won't match ICU blocks)
-    r'|%\d+\$[a-zA-Z]+'   // %1$s, %2$ld, %3$02d — positional printf
-    r'|%[sd]'              // %s / %d              — simple printf
-    r'|@[a-zA-Z_]\w*',    // @variableName        — ARB style
+    r'\$\{[^}]+\}' // ${variableName}  — Dart interpolation
+    r'|\{\{[^}]+\}\}' // {{variableName}} — Mustache
+    r'|\{[^{},\s]+\}' // {variableName}   — easy_localization
+    //   (no commas/spaces → won't match ICU blocks)
+    r'|%\d+\$[a-zA-Z]+' // %1$s, %2$ld, %3$02d — positional printf
+    r'|%[sd]' // %s / %d              — simple printf
+    r'|@[a-zA-Z_]\w*', // @variableName        — ARB style
   );
 
   /// Replaces every placeholder in [text] with a token `__VAR_N__` and

@@ -28,8 +28,7 @@ Future<void> main(List<String> arguments) async {
     ..addFlag(
       'escape-vars',
       negatable: false,
-      help:
-          'Detect and preserve interpolation placeholders ({var}, {{var}}, '
+      help: 'Detect and preserve interpolation placeholders ({var}, {{var}}, '
           r'%s, @var, ${var}) so they are not altered by the translation engine.',
     )
     ..addFlag(
@@ -54,8 +53,7 @@ Future<void> main(List<String> arguments) async {
     )
     ..addOption(
       'skip-keys',
-      help:
-          'Regular-expression pattern; any key whose fully-qualified dotted '
+      help: 'Regular-expression pattern; any key whose fully-qualified dotted '
           'path matches this pattern is left untranslated.',
     )
     ..addFlag(
@@ -95,16 +93,24 @@ Future<void> main(List<String> arguments) async {
   }
 
   final options = TranslationOptions(
-    escapeVars: results['escape-vars'] as bool,
-    handlePlurals: results['handle-plurals'] as bool,
-    cldrExpand: results['cldr-expand'] as bool,
-    dryRun: results['dry-run'] as bool,
+    escapeVars: results.arguments.contains("escape-vars") == true
+        ? results['escape-vars'] as bool
+        : false,
+    handlePlurals: results.arguments.contains("plurals") == true
+        ? results['handle-plurals'] as bool
+        : true,
+    cldrExpand: results.arguments.contains("cldr-expand") == true
+        ? results['cldr-expand'] as bool
+        : true,
+    dryRun: results.arguments.contains("dry-run") == true
+        ? results['dry-run'] as bool
+        : false,
     skipKeys: skipKeys,
   );
 
   final localizer = Localizer(
     configPath: configPath,
-    verbose: verbose,
+    verbose: true,
     options: options,
   );
 

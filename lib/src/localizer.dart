@@ -37,13 +37,12 @@ class Localizer {
     _log('Config: $config');
 
     _log(
-      'Reading source JSON '
-      '(${config.sourceDestination}/${config.sourceLanguage}.json) …',
+      'Reading source ${config.fileExtension} '
+      '(${config.sourceDestination}/${config.fileName}${config.sourceLanguage}.${config.fileExtension}) …',
     );
     final sourceJson = _fileHandler.readJson(
-      config.sourceDestination,
-      config.sourceLanguage,
-    );
+        config.sourceDestination, config.sourceLanguage, config.fileExtension,
+        fileName: config.fileName);
     _log('Source contains ${sourceJson.length} top-level key(s).');
 
     final summary = TranslationSummary();
@@ -61,8 +60,11 @@ class Localizer {
 
       if (!options.dryRun) {
         final dest = config.translatedDestination;
-        _fileHandler.writeJson(dest, targetLang, translatedJson);
-        _log('  ✓ Written to $dest/$targetLang.json');
+        _fileHandler.writeJson(
+            dest, targetLang, translatedJson, config.fileExtension,
+            fileName: config.fileName);
+        _log(
+            '  ✓ Written to $dest/${config.fileName}$targetLang.${config.fileExtension}');
       }
     }
 

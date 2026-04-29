@@ -11,11 +11,18 @@ source:
   - en
 
 output:
-  - es
   - ar
+  - es
 
-source_destination:
-  - lib/lang
 
-translated_destination:
-  - lib/lang
+file_extension:
+  - arb
+
+file_name:
+  - arb_
+
+#source_destination:
+#  - lib/lang
+#
+#translated_destination:
+#  - lib/lang

@@ -18,11 +18,21 @@ class TranslateConfig {
   /// Defaults to 'lib/lang'.
   final String translatedDestination;
 
+  /// File extension to be used for translated files and source file.
+  /// Default is .json
+  final String fileExtension;
+
+  /// File name to be used for translated files and source file.
+  /// Default is empty string
+  final String fileName;
+
   const TranslateConfig({
     required this.sourceLanguage,
     required this.outputLanguages,
     required this.sourceDestination,
     required this.translatedDestination,
+    required this.fileExtension,
+    required this.fileName,
   });
 
   /// Loads and parses a [TranslateConfig] from a YAML file at [configPath].
@@ -91,12 +101,23 @@ class TranslateConfig {
         ? _extractSingleValue(transDestRaw, 'translated_destination')
         : 'lib/lang';
 
+    final sourceAndDestFileExtensionRaw = doc['file_extension'];
+    final sourceAndDestFileExtension = sourceAndDestFileExtensionRaw != null
+        ? _extractSingleValue(sourceAndDestFileExtensionRaw, 'file_extension')
+        : 'json';
+
+    final sourceAndDestFileNameRaw = doc['file_name'];
+    final sourceAndDestFileName = sourceAndDestFileNameRaw != null
+        ? _extractSingleValue(sourceAndDestFileNameRaw, 'file_name')
+        : 'json';
+
     return TranslateConfig(
-      sourceLanguage: sourceLanguage,
-      outputLanguages: outputLanguages,
-      sourceDestination: sourceDestination,
-      translatedDestination: translatedDestination,
-    );
+        sourceLanguage: sourceLanguage,
+        outputLanguages: outputLanguages,
+        sourceDestination: sourceDestination,
+        translatedDestination: translatedDestination,
+        fileExtension: sourceAndDestFileExtension,
+        fileName: sourceAndDestFileName);
   }
 
   /// Extracts a single string value from a scalar or single-element list node.
@@ -129,5 +150,7 @@ class TranslateConfig {
       'source: $sourceLanguage, '
       'output: $outputLanguages, '
       'sourceDestination: $sourceDestination, '
-      'translatedDestination: $translatedDestination)';
+      'translatedDestination: $translatedDestination ,'
+      'fileExtension: $fileExtension,'
+      'fileName: $fileName)';
 }

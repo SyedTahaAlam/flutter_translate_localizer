@@ -58,10 +58,10 @@ void main() {
     });
 
     test('escapes multiple variables and assigns sequential tokens', () {
-      final result =
-          VariableEscaper.escape('Welcome {firstName}, you have {count} messages');
-      expect(result.tokenized,
-          'Welcome __VAR_0__, you have __VAR_1__ messages');
+      final result = VariableEscaper.escape(
+          'Welcome {firstName}, you have {count} messages');
+      expect(
+          result.tokenized, 'Welcome __VAR_0__, you have __VAR_1__ messages');
       expect(result.variables, ['{firstName}', '{count}']);
     });
 
@@ -130,7 +130,8 @@ void main() {
     test('round-trip: escape then restore recovers original string', () {
       const original = r'Welcome ${user}, you have {count} messages at %s';
       final escaped = VariableEscaper.escape(original);
-      final restored = VariableEscaper.restore(escaped.tokenized, escaped.variables);
+      final restored =
+          VariableEscaper.restore(escaped.tokenized, escaped.variables);
       expect(restored, original);
     });
   });

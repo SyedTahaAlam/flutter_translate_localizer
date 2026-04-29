@@ -21,7 +21,7 @@ void main() {
       final file = File('${tempDir.path}/en.json');
       file.writeAsStringSync('{"hello": "Hello", "world": "World"}');
 
-      final result = handler.readJson(tempDir.path, 'en');
+      final result = handler.readJson(tempDir.path, 'en', "json");
       expect(result, {'hello': 'Hello', 'world': 'World'});
     });
 
@@ -31,13 +31,13 @@ void main() {
         '{"greetings": {"hello": "Hello", "bye": "Goodbye"}}',
       );
 
-      final result = handler.readJson(tempDir.path, 'en');
+      final result = handler.readJson(tempDir.path, 'en', "json");
       expect(result['greetings'], {'hello': 'Hello', 'bye': 'Goodbye'});
     });
 
     test('throws FileSystemException for missing file', () {
       expect(
-        () => handler.readJson(tempDir.path, 'missing'),
+        () => handler.readJson(tempDir.path, 'missing', "json"),
         throwsA(isA<FileSystemException>()),
       );
     });
@@ -47,7 +47,7 @@ void main() {
       file.writeAsStringSync('not json at all');
 
       expect(
-        () => handler.readJson(tempDir.path, 'bad'),
+        () => handler.readJson(tempDir.path, 'bad', "json"),
         throwsA(isA<FormatException>()),
       );
     });
@@ -57,7 +57,7 @@ void main() {
       file.writeAsStringSync('["a", "b"]');
 
       expect(
-        () => handler.readJson(tempDir.path, 'list'),
+        () => handler.readJson(tempDir.path, 'list', "json"),
         throwsA(isA<FormatException>()),
       );
     });
@@ -65,7 +65,7 @@ void main() {
 
   group('FileHandler.writeJson', () {
     test('writes JSON to file with pretty-printing', () {
-      handler.writeJson(tempDir.path, 'es', {'hola': 'Hola'});
+      handler.writeJson(tempDir.path, 'es', {'hola': 'Hola'}, "json");
 
       final file = File('${tempDir.path}/es.json');
       expect(file.existsSync(), isTrue);
@@ -77,15 +77,15 @@ void main() {
 
     test('creates intermediate directories', () {
       final nested = '${tempDir.path}/sub/dir';
-      handler.writeJson(nested, 'fr', {'bonjour': 'Bonjour'});
+      handler.writeJson(nested, 'fr', {'bonjour': 'Bonjour'}, "json");
 
       final file = File('$nested/fr.json');
       expect(file.existsSync(), isTrue);
     });
 
     test('overwrites an existing file', () {
-      handler.writeJson(tempDir.path, 'de', {'alt': 'old value'});
-      handler.writeJson(tempDir.path, 'de', {'neu': 'new value'});
+      handler.writeJson(tempDir.path, 'de', {'alt': 'old value'}, "json");
+      handler.writeJson(tempDir.path, 'de', {'neu': 'new value'}, "json");
 
       final file = File('${tempDir.path}/de.json');
       final content = file.readAsStringSync();
@@ -98,9 +98,9 @@ void main() {
         'greetings': {'hello': 'Hola', 'bye': 'Adiós'},
         'count': 42,
       };
-      handler.writeJson(tempDir.path, 'es', original);
+      handler.writeJson(tempDir.path, 'es', original, "json");
 
-      final result = handler.readJson(tempDir.path, 'es');
+      final result = handler.readJson(tempDir.path, 'es', "json");
       expect(result['greetings'], {'hello': 'Hola', 'bye': 'Adiós'});
       expect(result['count'], 42);
     });

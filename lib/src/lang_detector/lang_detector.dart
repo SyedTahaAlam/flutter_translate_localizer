@@ -25,13 +25,10 @@ class LangDetector {
     final script = _scriptForLanguage(languageCode);
     if (script == null) return false; // Latin: never skip.
 
-    final letters = trimmed.runes
-        .where((r) => _isLetter(r))
-        .toList();
+    final letters = trimmed.runes.where((r) => _isLetter(r)).toList();
     if (letters.isEmpty) return false;
 
-    final matching =
-        letters.where((r) => _inRange(r, script)).length;
+    final matching = letters.where((r) => _inRange(r, script)).length;
     return matching / letters.length >= threshold;
   }
 

@@ -10,8 +10,10 @@ class FileHandler {
   ///
   /// Throws [FileSystemException] if the file does not exist.
   /// Throws [FormatException] if the file content is not valid JSON.
-  Map<String, dynamic> readJson(String directory, String languageCode) {
-    final filePath = p.join(directory, '$languageCode.json');
+  Map<String, dynamic> readJson(
+      String directory, String languageCode, String fileExtension,
+      {String fileName = ""}) {
+    final filePath = p.join(directory, '$fileName$languageCode.$fileExtension');
     final file = File(filePath);
 
     if (!file.existsSync()) {
@@ -40,17 +42,15 @@ class FileHandler {
   /// Writes [content] as pretty-printed JSON to [directory]/[languageCode].json.
   ///
   /// Creates intermediate directories if they do not exist.
-  void writeJson(
-    String directory,
-    String languageCode,
-    Map<String, dynamic> content,
-  ) {
+  void writeJson(String directory, String languageCode,
+      Map<String, dynamic> content, String fileExtension,
+      {String fileName = ""}) {
     final dir = Directory(directory);
     if (!dir.existsSync()) {
       dir.createSync(recursive: true);
     }
 
-    final filePath = p.join(directory, '$languageCode.json');
+    final filePath = p.join(directory, '$fileName$languageCode.$fileExtension');
     final file = File(filePath);
     const encoder = JsonEncoder.withIndent('  ');
     file.writeAsStringSync(encoder.convert(content), encoding: utf8);

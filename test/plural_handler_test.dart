@@ -50,8 +50,7 @@ void main() {
     });
 
     test('parses all six Arabic plural categories', () {
-      const input =
-          '{count, plural, zero{# رسائل} one{# رسالة} two{# رسالتان} '
+      const input = '{count, plural, zero{# رسائل} one{# رسالة} two{# رسالتان} '
           'few{# رسائل} many{# رسالة} other{# رسائل}}';
       final block = PluralHandler.parse(input);
       expect(block, isNotNull);

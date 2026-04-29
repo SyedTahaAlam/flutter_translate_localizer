@@ -31,8 +31,7 @@ class IcuPluralBlock {
 
   /// Reconstructs the ICU plural string from [entries].
   String reconstruct() {
-    final arms =
-        entries.map((e) => '${e.category}{${e.content}}').join(' ');
+    final arms = entries.map((e) => '${e.category}{${e.content}}').join(' ');
     return '{$variable, plural, $arms}';
   }
 }
@@ -54,8 +53,7 @@ class PluralHandler {
   );
 
   /// Returns `true` if [text] looks like an ICU plural block.
-  static bool isIcuPlural(String text) =>
-      _icuPattern.hasMatch(text.trim());
+  static bool isIcuPlural(String text) => _icuPattern.hasMatch(text.trim());
 
   /// Parses an ICU plural block string into an [IcuPluralBlock].
   ///
@@ -105,9 +103,8 @@ class PluralHandler {
     } else {
       // Preserve the source order while keeping only categories present in
       // the translated map.
-      outputCategories = orderedCategories
-          .where(translatedEntries.containsKey)
-          .toList();
+      outputCategories =
+          orderedCategories.where(translatedEntries.containsKey).toList();
     }
 
     final arms = <String>[];
