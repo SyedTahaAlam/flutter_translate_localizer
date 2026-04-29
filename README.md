@@ -68,6 +68,24 @@ translated_destination:
   - lib/translated
 ```
 
+File extension can be provided and to cover the arb nomenclature you can provide the prefix of the file name e.g suffix can be provided as "arb_" then the translated file will be arb_en.arb:
+
+```yaml
+source:
+  - en
+
+output:
+  - ar
+  - es
+
+
+file_extension:
+  - arb
+
+file_name_prefix:
+  - arb_
+```
+
 ### 3. Create the source language file
 
 Place your source JSON at the path specified by `source_destination`
