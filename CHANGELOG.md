@@ -1,4 +1,4 @@
-## 1.0.0
+## 1.0.1
 
 * Initial release.
 * Reads a `translate_config.yaml` configuration file.
@@ -6,3 +6,4 @@
   Google Translate public API.
 * Supports custom source and translated-output directories.
 * CLI executable: `dart run flutter_translate_localizer`.
+* yaml parameters added
