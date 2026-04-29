@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:flutter_translate_localizer/flutter_translate_localizer.dart';
-import 'package:flutter_translate_localizer/src/translator/translation_options.dart';
 
 /// Entry point for the `flutter_translate` executable.
 ///
@@ -110,7 +109,7 @@ Future<void> main(List<String> arguments) async {
 
   final localizer = Localizer(
     configPath: configPath,
-    verbose: true,
+    verbose: verbose,
     options: options,
   );
 
