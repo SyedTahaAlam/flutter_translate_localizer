@@ -18,7 +18,7 @@ output:
 file_extension:
   - arb
 
-file_name:
+file_name_prefix:
   - arb_
 
 #source_destination:

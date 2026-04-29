@@ -106,9 +106,9 @@ class TranslateConfig {
         ? _extractSingleValue(sourceAndDestFileExtensionRaw, 'file_extension')
         : 'json';
 
-    final sourceAndDestFileNameRaw = doc['file_name'];
+    final sourceAndDestFileNameRaw = doc['file_name_prefix'];
     final sourceAndDestFileName = sourceAndDestFileNameRaw != null
-        ? _extractSingleValue(sourceAndDestFileNameRaw, 'file_name')
+        ? _extractSingleValue(sourceAndDestFileNameRaw, 'file_name_prefix')
         : 'json';
 
     return TranslateConfig(
